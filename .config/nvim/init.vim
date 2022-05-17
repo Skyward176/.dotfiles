@@ -6,9 +6,10 @@ call plug#begin()
     Plug 'sheerun/vim-polyglot' "various language syntax support 
     Plug 'cohama/lexima.vim' "hopefully finally have working auto-closing thingies
     Plug 'prettier/vim-prettier', { 'do': 'yarn install --frozen-lockfile --production' } "prettier... pretty
+    Plug 'mhinz/vim-startify'
     "language extensions via @coc.nvim
     Plug 'neoclide/coc-tsserver', {'do': 'yarn install'}
-    Plug 'rodrigore/coc-tailwind-intellisense', {'do': 'yarn install'}
+    Plug 'yaegassy/coc-tailwindcss3', {'do': 'yarn install --frozen-lockfile'}
 call plug#end()
 
 "basic configuration
@@ -39,6 +40,27 @@ let g:ctrlp_user_command = 'ag %s -i --nocolor --nogroup --hidden
       \ --ignore "**/*.pyc"
       \ -g ""'
 
+" startify configuration. Startify is also used for session management
+" 'Most Recent Files' number
+let g:startify_files_number           = 18
+
+" Update session automatically as you exit vim
+let g:startify_session_persistence    = 1
+
+" Simplify the startify list to just recent files and sessions
+let g:startify_lists = [
+  \ { 'type': 'dir',       'header': ['   Recent files'] },
+  \ { 'type': 'sessions',  'header': ['   Saved sessions'] },
+  \ ]
+
+" Fancy custom header
+let g:startify_custom_header = [
+    \'  .__   __.  _______   ______   ____    ____  __  .___  ___.',
+    \'  |  \ |  | |   ____| /  __  \  \   \  /   / |  | |   \/   | ',
+    \'  |   \|  | |  |__   |  |  |  |  \   \/   /  |  | |  \  /  |', 
+    \'  |  . `  | |   __|  |  |  |  |   \      /   |  | |  |\/|  |',
+    \"  |  |\\   | |  |____ |  `--'  |    \\    /    |  | |  |  |  |", 
+    \'  |__| \__| |_______| \______/      \__/     |__| |__|  |__|']
 " coc.nvim configuration
 " Set internal encoding of vim, not needed on neovim, since coc.nvim using some
 " unicode characters in the file autoload/float.vim
