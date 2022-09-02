@@ -120,13 +120,7 @@ require("nvim-tree").setup()
 vim.api.nvim_set_keymap('n', '<C-t>', [[:NvimTreeToggle<CR>]], {})
 -- ctrlp
 vim.g.ctrlp_working_path_mode='ra'
-vim.g.ctrlp_user_command = [[ag %s -i --nocolor --nogroup --hidden
-    \ --ignore .git
-    \ --ignore .svn
-    \ --ignore .hg
-    \ --ignore .DS_Store
-    \ --ignore "**/*.pyc"
-    \ -g "" ]]
+vim.g.ctrlp_user_command = [[ag %s -i --nocolor --nogroup --hidden --ignore .git --ignore .svn --ignore .hg --ignore .DS_Store --ignore "**/*.pyc" -g "" ]]
 
 --startify
 vim.g.startify_files_number = 18
