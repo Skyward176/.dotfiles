@@ -16,6 +16,7 @@ vim.call('plug#begin')
     --Language server things
     Plug 'neovim/nvim-lspconfig'
     Plug 'williamboman/mason.nvim'
+    Plug 'windwp/nvim-autopairs'
 
 vim.call('plug#end')
 
@@ -88,6 +89,9 @@ vim.opt.tabstop=4
 vim.opt.shiftwidth=4
 vim.opt.expandtab=true
 vim.opt.number= true
+
+-- Autopairs config
+require("nvim-autopairs").setup{}
 
 --colorscheme configuration
 vim.cmd[[colorscheme tokyonight]]
