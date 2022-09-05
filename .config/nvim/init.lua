@@ -1,95 +1,105 @@
--- Fallback vimscript (hopefully don't need to touch that again)
-vim.cmd([[
-    
-]])
-local Plug = vim.fn['plug#']
-vim.call('plug#begin')
-    Plug ('folke/tokyonight.nvim', { branch = 'main' }) -- theme
-    Plug 'https://github.com/ctrlpvim/ctrlp.vim.git' --ctrlp fuzzy search
-    Plug 'sheerun/vim-polyglot' --various language syntax support 
-    Plug ('prettier/vim-prettier', { ['do'] = 'yarn install --frozen-lockfile --production' }) --prettier... pretty
-    Plug 'mhinz/vim-startify'
-    Plug 'kyazdani42/nvim-tree.lua' --lua nerdree but better i guess
-    --airline stuff but without airline
-    Plug 'nvim-lualine/lualine.nvim'
-    Plug 'kyazdani42/nvim-web-devicons'
-    --Language server things
-    Plug 'neovim/nvim-lspconfig'
-    Plug 'williamboman/mason.nvim'
-    Plug 'windwp/nvim-autopairs'
-
-vim.call('plug#end')
-
--- Mappings from nvim lspconfig 
-
--- See `:help vim.diagnostic.*` for documentation on any of the below functions
-local opts = { noremap=true, silent=true }
-vim.keymap.set('n', '<space>e', vim.diagnostic.open_float, opts)
-vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
-vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
-vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, opts)
-
--- Use an on_attach function to only map the following keys
--- after the language server attaches to the current buffer
--- MUST USE THIS IN ALL require'lspconfig'.languageServer.setup{on_attach} calls!
-local on_attach = function(client, bufnr)
-  -- Enable completion triggered by <c-x><c-o>
-  vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
-
-  -- Mappings.
-  -- See `:help vim.lsp.*` for documentation on any of the below functions
-  local bufopts = { noremap=true, silent=true, buffer=bufnr }
-  vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
-  vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
-  vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
-  vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
-  vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, bufopts)
-  vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, bufopts)
-  vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, bufopts)
-  vim.keymap.set('n', '<space>wl', function()
-    print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-  end, bufopts)
-  vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, bufopts)
-  vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, bufopts)
-  vim.keymap.set('n', '<space>ca', vim.lsp.buf.code_action, bufopts)
-  vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
-  vim.keymap.set('n', '<space>f', vim.lsp.buf.formatting, bufopts)
-end
-
-local lsp_flags = {
-  -- This is the default in Nvim 0.7+
-  debounce_text_changes = 150,
-}
-require('lspconfig')['pyright'].setup{
-    on_attach = on_attach,
-    flags = lsp_flags,
-}
-require('lspconfig')['tsserver'].setup{
-    on_attach = on_attach,
-    flags = lsp_flags,
-}
-require('lspconfig')['rust_analyzer'].setup{
-    on_attach = on_attach,
-    flags = lsp_flags,
-    -- Server-specific settings...
-    settings = {
-      ["rust-analyzer"] = {}
-    }
-}
-
-
---Mappings for mason.nvim (lsp manager)
-
-require("mason").setup(
-)
-
+-- Plugin installation
+require('plugins')
 
 -- basic configuration
 vim.opt.tabstop=4
 vim.opt.shiftwidth=4
 vim.opt.expandtab=true
 vim.opt.number= true
+vim.o.completeopt='menu,menuone,noselect'
 
+
+--Mappings for mason.nvim (lsp manager)
+
+require("mason").setup(
+)
+require("mason-lspconfig").setup(
+
+)
+local lspconfig = require("lspconfig")
+
+require("mason-lspconfig").setup_handlers {
+    -- This is a default handler that will be called for each installed server (also for new servers that are installed during a session)
+    function (server_name)
+       lspconfig[server_name].setup {
+           on_attach = require("lsp_bindings").on_attach(client, bufnr)
+       }
+    end
+}
+
+-- config for global lsp commands, provided from nvim-lspconfig doc
+local opts = { noremap=true, silent=true }
+vim.keymap.set('n', '<space>e', vim.diagnostic.open_float, opts)
+vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
+vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
+vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, opts)
+
+-- nvim cmp config
+local cmp = require('cmp')
+local luasnip = require('luasnip')
+
+local select_opts = {behavior = cmp.SelectBehavior.Select}
+cmp.setup({
+    snippet = {
+        expand = function(args)
+            luasnip.lsp_expand(args.body)
+        end
+    },
+    sources = {
+        {name = 'path'},
+        {name = 'nvim_lsp', keyword_length = 3},
+        {name = 'buffer', keyword_length = 3},
+    },
+    mapping = {
+        ['<Up>'] = cmp.mapping.select_prev_item(select_opts),
+        ['<Down>'] = cmp.mapping.select_next_item(select_opts),
+
+        ['<C-p>'] = cmp.mapping.select_prev_item(select_opts),
+        ['<C-n>'] = cmp.mapping.select_next_item(select_opts),
+
+        ['<C-u>'] = cmp.mapping.scroll_docs(-4),
+        ['<C-f>'] = cmp.mapping.scroll_docs(4),
+
+        ['<C-e>'] = cmp.mapping.abort(),
+        ['<CR>'] = cmp.mapping.confirm({select = true}),
+
+        ['<C-d>'] = cmp.mapping(function(fallback)
+          if luasnip.jumpable(1) then
+            luasnip.jump(1)
+          else
+            fallback()
+          end
+        end, {'i', 's'}),
+
+        ['<C-b>'] = cmp.mapping(function(fallback)
+          if luasnip.jumpable(-1) then
+            luasnip.jump(-1)
+          else
+            fallback()
+          end
+        end, {'i', 's'}),
+
+        ['<Tab>'] = cmp.mapping(function(fallback)
+          local col = vim.fn.col('.') - 1
+
+          if cmp.visible() then
+            cmp.select_next_item(select_opts)
+          elseif col == 0 or vim.fn.getline('.'):sub(col, col):match('%s') then
+            fallback()
+          else
+            cmp.complete()
+          end
+        end, {'i', 's'}),
+
+        ['<S-Tab>'] = cmp.mapping(function(fallback)
+          if cmp.visible() then
+            cmp.select_prev_item(select_opts)
+          else
+            fallback()
+          end
+        end, {'i', 's'}),
+    },
+})
 -- Autopairs config
 require("nvim-autopairs").setup{}
 
