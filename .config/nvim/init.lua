@@ -136,6 +136,18 @@ vim.api.nvim_set_keymap('n', '<C-t>', [[:NvimTreeToggle<CR>]], {})
 vim.g.ctrlp_working_path_mode='ra'
 vim.g.ctrlp_user_command = [[ag %s -i --nocolor --nogroup --hidden --ignore .git --ignore .svn --ignore .hg --ignore .DS_Store --ignore "**/*.pyc" -g "" ]]
 
+-- Treesitter
+require('nvim-treesitter.configs').setup{
+  ensure_installed = {'java', 'python', 'javascript', 'c'},
+  highlight = {
+    enable = true
+  }
+}
+-- Glow
+require('glow').setup({
+  -- your override config
+})
+
 --startify
 vim.g.startify_files_number = 18
 vim.g.startify_session_persistence = 1

@@ -37,6 +37,12 @@ return require('packer').startup(function(use)
         'hrsh7th/nvim-cmp',
     }
     use 'windwp/nvim-autopairs'
+    use {
+        'nvim-treesitter/nvim-treesitter',
+        run = function() require('nvim-treesitter.install').update({with_sync = true }) end,
+    }
+    -- Glow for Markdown previewing
+    use {"ellisonleao/glow.nvim"}
     -- sync if new install
     if packer_bootstrap then
         require('packer').sync()

@@ -121,3 +121,9 @@ source /opt/homebrew/opt/powerlevel10k/powerlevel10k.zsh-theme
 
 # Force ctrl+r to work because tmux has suddenly decided to hate me
 bindkey '^R' history-incremental-search-backward
+
+
+#Ruby stuff???
+eval "$(rbenv init - zsh)"
+# android tools
+export PATH="${HOME}/Library/Android/sdk/tools:${HOME}/Library/Android/sdk/platform-tools:${PATH}"
