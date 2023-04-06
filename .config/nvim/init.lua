@@ -4,10 +4,8 @@ require('plugins')
 -- basic configuration
 vim.opt.tabstop=4
 vim.opt.shiftwidth=4
-vim.opt.expandtab=true
-vim.opt.number= true
-vim.o.completeopt='menu,menuone,noselect'
-
+vim.opt.expandtab=true vim.opt.number= true
+vim.o.completeopt='menu,menuone,noselect' vim.g.mapleader = ' '
 
 --Mappings for mason.nvim (lsp manager)
 
@@ -100,10 +98,16 @@ cmp.setup({
         end, {'i', 's'}),
     },
 })
--- Autopairs config
-require("nvim-autopairs").setup{}
-
+---- Autopairs config
+--require("nvim-autopairs").setup{}
+--
 --colorscheme configuration
+require("tokyonight").setup({
+    style = "night",
+    styles = {
+        functions = { italic=true }
+    }
+})
 vim.cmd[[colorscheme tokyonight]]
 
 -- shoving lualine in here too
@@ -126,27 +130,46 @@ require("lualine").setup{
       lualine_z = {'tabs'}
     }
 }
-vim.g.tokyonight_style = "night"
-vim.g.tokyonight_italic_functions = true
-
---nvim tree
-require("nvim-tree").setup()
-vim.api.nvim_set_keymap('n', '<C-t>', [[:NvimTreeToggle<CR>]], {})
--- ctrlp
-vim.g.ctrlp_working_path_mode='ra'
-vim.g.ctrlp_user_command = [[ag %s -i --nocolor --nogroup --hidden --ignore .git --ignore .svn --ignore .hg --ignore .DS_Store --ignore "**/*.pyc" -g "" ]]
 
 -- Treesitter
 require('nvim-treesitter.configs').setup{
-  ensure_installed = {'java', 'python', 'javascript', 'c'},
+  ensure_installed = {'lua', 'java', 'python', 'javascript', 'c'},
+  auto_install = true,
   highlight = {
-    enable = true
+    enable = true,
+    -- Or use a function for more flexibility, e.g. to disable slow treesitter highlight for large files
+    disable = function(lang, buf)
+        local max_filesize = 100 * 1024 -- 100 KB
+        local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
+        if ok and stats and stats.size > max_filesize then
+            return true
+        end
+   end,
   }
 }
+
 -- Glow
 require('glow').setup({
   -- your override config
 })
+
+-- Telescope mappings
+require("telescope").setup {
+    extensions = {
+        file_browser = {
+        }
+    }
+}
+
+require("telescope").load_extension "file_browser"
+
+local builtin = require('telescope.builtin')
+vim.keymap.set('n', '<leader>ff', builtin.find_files, {})
+vim.keymap.set('n', '<leader>fg', builtin.live_grep, {})
+vim.keymap.set('n', '<leader>fb', builtin.buffers, {})
+vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
+
+vim.keymap.set('n', '<leader>fe', ':Telescope file_browser', { noremap = true })
 
 --startify
 vim.g.startify_files_number = 18
@@ -158,5 +181,5 @@ vim.g.startify_custom_header = {
     [[  |  \ |  | |   ____| /  __  \  \   \  /   / |  | |   \/   | ]],
     [[  |   \|  | |  |__   |  |  |  |  \   \/   /  |  | |  \  /  |]], 
     [[  |  . `  | |   __|  |  |  |  |   \      /   |  | |  |\/|  |]],
-    [[  |  |\\   | |  |____ |  `--'  |    \\    /    |  | |  |  |  |]], 
+    [[  |  |\ \ | |  |____ |  `--'  |    \\   /    |  | |  |  |  |]], 
     [[  |__| \__| |_______| \______/      \__/     |__| |__|  |__|]]}
