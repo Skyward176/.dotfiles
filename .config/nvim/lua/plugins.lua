@@ -34,7 +34,7 @@ return require('packer').startup(function(use)
         'hrsh7th/cmp-cmdline',
         'hrsh7th/nvim-cmp',
     }
-   -- use 'windwp/nvim-autopairs'
+    use 'windwp/nvim-autopairs'
     use {
         'nvim-treesitter/nvim-treesitter',
         run = function()
@@ -57,6 +57,9 @@ return require('packer').startup(function(use)
         "nvim-telescope/telescope-file-browser.nvim",
         requires = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" }
     }
+
+    -- Rich presence
+    use 'andweeb/presence.nvim'
 
     -- sync if new install
     if packer_bootstrap then
