@@ -47,7 +47,45 @@ xargs -I{} mv {} .config-backup/{}
 
 # NVIM
 
-### Packages
-- 
+## Packages
+
+Here's a list of all the packages in my nvim config and their relevant keybinds.
+
+### vim-yoink
+
+Cycle through different yanked buffers
+
+### vim-cutlass
+
+Delete actually deletes, adds a 'move' or 'cut' verb instead
+
+### vim-subversive
+
+Adds substitute/find-replace motion
+
+### vim-repeat
+
+It's a prereq to other packages. I don't actually know what it does really.
+
+### vim-fugitive
+
+Git in vim
+
+### nvim-web-devicons
+
+Devicons.
+
+### tokyonight
+
+Theme.
+
+### dressing.nvim
+
+Make things pretty.
+
+### nvim-surround
+
+Motions/verbs to edit all the surrounding bits but *cooler*
+
 # TMUX
 # Other Tools
