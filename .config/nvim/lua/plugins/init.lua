@@ -8,7 +8,6 @@ local Plugins = {
 
   {'nvim-tree/nvim-web-devicons', lazy = true},
 
-  {'svermeulen/vim-yoink'},
   {'svermeulen/vim-subversive'},
   {'svermeulen/vim-cutlass'},
 
