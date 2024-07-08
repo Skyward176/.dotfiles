@@ -87,5 +87,14 @@ Make things pretty.
 
 Motions/verbs to edit all the surrounding bits but *cooler*
 
+### nvim-cmp
+
+Code completion in nvim. 
+Sources:
+- nvim-copilot
+- nvim_lsp
+- nvim_lua
+- luasnip
+
 # TMUX
 # Other Tools
