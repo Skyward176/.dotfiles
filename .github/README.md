@@ -51,17 +51,21 @@ xargs -I{} mv {} .config-backup/{}
 
 Here's a list of all the packages in my nvim config and their relevant keybinds.
 
-### vim-yoink
+### yanky.nvim
 
-Cycle through different yanked buffers
+Improves yank behavior. Important notes:
+- replaces put with yanky put
+- `<c-p>` and `<c-n>` let you cycle entries in yanky ring(clipboard, basically)
+
+Also gives cool put features(read keybinds file)
 
 ### vim-cutlass
 
-Delete actually deletes, adds a 'move' or 'cut' verb instead
+Delete actually deletes, adds a 'move' or 'cut' motion with the 'x' key.
 
 ### vim-subversive
 
-Adds substitute/find-replace motion
+Adds substitute/find-replace motion. Read the keybinds for details.
 
 ### vim-repeat
 
