@@ -32,7 +32,19 @@ local Plugins = {
     -- treesitter objects 
     {'nvim-treesitter/nvim-treesitter-textobjects'},
 
-    {'nvim-telescope/telescope-file-browser.nvim'}
+    -- file broswer in telescope
+    {'nvim-telescope/telescope-file-browser.nvim'},
+
+    -- LSP install and support
+    {
+        "williamboman/mason.nvim",
+        lazy=false,
+        config = function()
+            require("mason").setup()
+        end
+    },
+    {"williamboman/mason-lspconfig.nvim"},
+    {"neovim/nvim-lspconfig"},
 
 
 }
