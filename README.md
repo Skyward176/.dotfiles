@@ -1,3 +1,0 @@
-# NVIM
-# TMUX
-# Other Tools

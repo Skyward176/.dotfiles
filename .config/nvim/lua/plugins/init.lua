@@ -30,7 +30,10 @@ local Plugins = {
         end
     },
     -- treesitter objects 
-    {'nvim-treesitter/nvim-treesitter-textobjects'}
+    {'nvim-treesitter/nvim-treesitter-textobjects'},
+
+    {'nvim-telescope/telescope-file-browser.nvim'}
+
 
 }
 
