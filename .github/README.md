@@ -129,5 +129,9 @@ Sources:
 - nvim_lua
 - luasnip
 
+### Mason
+
+Handles installation and configuration of nvim-lsps 
+
 # TMUX
 # Other Tools
