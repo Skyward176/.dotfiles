@@ -1,3 +1,5 @@
+-- nvim-tree
+vim.api.nvim_set_keymap("n", "<C-h>", ":NvimTreeToggle<cr>", {silent = true, noremap = true})
 -- telescope maps
 local builtin = require('telescope.builtin')
 require('telescope').load_extension "file_browser"

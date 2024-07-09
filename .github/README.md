@@ -51,6 +51,22 @@ xargs -I{} mv {} .config-backup/{}
 
 Here's a list of all the packages in my nvim config and their relevant keybinds.
 
+### nvim tree
+
+The classic nerdtree but its lua.
+
+### Telescope
+
+A fuzzy finder for nvim. Also has a cool file explorer extension.
+
+### lualine
+
+Airline stuff, it's the little tabs at the top and bottom of the screen
+
+### treesitter
+
+Fancy highlighting and text objects and more
+
 ### yanky.nvim
 
 Improves yank behavior. Important notes:
@@ -89,7 +105,20 @@ Make things pretty.
 
 ### nvim-surround
 
-Motions/verbs to edit all the surrounding bits but *cooler*
+Motions/verbs to edit all the surrounding bits but *cooler*.
+
+The three "core" operations of add/delete/change can be done with the keymaps ys{motion}{char}, ds{char}, and cs{target}{replacement}, respectively. For the following examples, * will denote the cursor position:
+
+    Old text                    Command         New text
+--------------------------------------------------------------------------------
+    surr*ound_words             ysiw)           (surround_words)
+    *make strings               ys$"            "make strings"
+    [delete ar*ound me!]        ds]             delete around me!
+    remove <b>HTML t*ags</b>    dst             remove HTML tags
+    'change quot*es'            cs'"            "change quotes"
+    <b>or tag* types</b>        csth1<CR>       <h1>or tag types</h1>
+    delete(functi*on calls)     dsf             function calls
+Detailed information on how to use this plugin can be found in :h nvim-surround.usage.
 
 ### nvim-cmp
 
