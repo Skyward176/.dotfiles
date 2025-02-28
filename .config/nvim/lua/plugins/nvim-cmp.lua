@@ -33,7 +33,7 @@ Plugin.config = function()
 		sources = cmp.config.sources(
             {
 
-                { name = "copilot" },
+                -- { name = "copilot" }, -- I don't want copilot right now, at least not in vim. Still cool in vscode tho. 
                 { name = "nvim_lsp" },
                 { name = "nvim_lua" },
                 { name = "luasnip" }, -- For luasnip users.

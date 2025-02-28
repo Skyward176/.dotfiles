@@ -17,7 +17,7 @@ local Plugins = {
     -- airline
     {'nvim-lualine/lualine.nvim'},
     -- discord presence
-    {'IogaMaster/neocord', event = 'VeryLazy'},
+    {'andweeb/presence.nvim', event = 'VeryLazy'},
     -- autopairs
     {'windwp/nvim-autopairs', event = "InsertEnter", config = true},
     -- nvim-surround for editing all sorts of paired surrounding marks
@@ -34,17 +34,6 @@ local Plugins = {
 
     -- file broswer in telescope
     {'nvim-telescope/telescope-file-browser.nvim'},
-
-    -- LSP install and support
-    {
-        "williamboman/mason.nvim",
-        lazy=false,
-        config = function()
-            require("mason").setup()
-        end
-    },
-    {"williamboman/mason-lspconfig.nvim"},
-    {"neovim/nvim-lspconfig"},
 
 
 }
