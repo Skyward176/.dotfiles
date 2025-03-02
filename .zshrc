@@ -106,11 +106,16 @@ fi
 #
 # Example aliases
 alias python="python3"
+alias pip="pip3"
 alias gpp="g++"
 alias pyvenv="source ./.venv/bin/activate"
 alias sd="sudo"
 alias dotfiles="/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME"
-# alias zshconfig="mate ~/.zshrc"
+if command -v nvim >/dev/null 2>&1; then
+    alias zshconfig="nvim ~/.zshrc"
+else
+    alias zshconfig="vim ~/.zshrc"
+fi
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 # switch to home directory
 cd ~/
