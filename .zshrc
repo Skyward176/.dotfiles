@@ -111,8 +111,10 @@ alias gpp="g++"
 alias pyvenv="source ./.venv/bin/activate"
 alias sd="sudo"
 alias dotfiles="/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME"
+alias g="git"
 alias gadd="git add"
 alias gcm="git commit"
+alias gpsh="git push"
 alias zshsrc="source ~/.zshrc"
 
 if command -v nvim >/dev/null 2>&1; then
