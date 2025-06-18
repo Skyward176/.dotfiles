@@ -2,7 +2,7 @@
 alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
 
 # Path to your oh-my-zsh installation.
-export ZSH="/home/skyward/.oh-my-zsh"
+export ZSH="$HOME/.oh-my-zsh"
 
 # Don't use an omz theme
 ZSH_THEME=""
@@ -58,7 +58,9 @@ ZSH_THEME=""
 # ZSH_CUSTOM=/path/to/new-custom-folder
 
 # Plugins
-plugins=(git)
+plugins=(
+    zsh-vi-mode
+)
 
 source $ZSH/oh-my-zsh.sh
 
