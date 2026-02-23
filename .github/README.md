@@ -134,7 +134,7 @@ Sources:
 
 Handles installation and configuration of nvim-lsps 
 
-# Other Tool# Oh my kitty!
+# Oh my kitty!
 
 the kitty config for tmux users
 
