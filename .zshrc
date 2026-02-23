@@ -1,3 +1,10 @@
+# --- OS Detection ---
+if [[ "$OSTYPE" == "darwin"* ]]; then
+    IS_MAC=true
+elif [[ "$OSTYPE" == "linux-gnu"* ]]; then
+    IS_LINUX=true
+fi
+
 # dotfiles config alias
 alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
 
@@ -95,8 +102,14 @@ alias gadd="git add"
 alias gcm="git commit"
 alias gpsh="git push"
 alias zshsrc="source ~/.zshrc"
-alias yay="paru -S"
-alias yeet="paru -Rc"
+# Linux-only Package Manager Aliases
+if [[ $IS_LINUX ]]; then
+    alias yay="paru -S"
+    alias yeet="paru -Rc"
+else
+    alias yay="brew install"
+    alias yeet="brew uninstall"
+fi
 
 if command -v nvim >/dev/null 2>&1; then
     alias zshconfig="nvim ~/.zshrc"
@@ -121,16 +134,13 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
 # starship config
 eval "$(starship init zsh)"
 
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+if [[ $IS_LINUX ]]; then
+    eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+fi
 
 # pyenv thingies 
 export PYENV_ROOT="$HOME/.pyenv"
@@ -141,8 +151,13 @@ eval "$(pyenv init - zsh)"
 # Created by `pipx` on 2025-10-22 00:40:38
 export PATH="$PATH:/home/iris/.local/bin"
 #
-# Pick a random image from the folder
-RANDOM_LOGO=$(ls ~/Pictures/terminal/*.png | shuf -n 1)
 
 # Run fastfetch using that specific image
-fastfetch --logo "$RANDOM_LOGO" --logo-type kitty --logo-width 30 --logo-height 15
+# # Random Fastfetch Logo (Handles missing directory gracefully)
+LOGO_DIR="$HOME/Pictures/terminal"
+if [[ -d "$LOGO_DIR" ]]; then
+    RANDOM_LOGO=$(ls "$LOGO_DIR"/*.png 2>/dev/null | shuf -n 1)
+    if [[ -n "$RANDOM_LOGO" ]]; then
+        fastfetch --logo "$RANDOM_LOGO" --logo-type kitty --logo-width 30 --logo-height 15
+    fi
+fi
