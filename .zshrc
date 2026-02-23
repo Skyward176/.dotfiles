@@ -86,8 +86,6 @@ fi
 # For a full list of active aliases, run `alias`.
 # TODO: Move these into the ZSH_CUSTOM folder
 #
-alias python="python3"
-alias pip="pip3"
 alias gpp="g++"
 alias pyvenv="source ./.venv/bin/activate"
 alias sd="sudo"
@@ -97,6 +95,8 @@ alias gadd="git add"
 alias gcm="git commit"
 alias gpsh="git push"
 alias zshsrc="source ~/.zshrc"
+alias yay="paru -S"
+alias yeet="paru -Rc"
 
 if command -v nvim >/dev/null 2>&1; then
     alias zshconfig="nvim ~/.zshrc"
@@ -106,8 +106,6 @@ fi
 
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-# switch to home directory when loading a terminal
-cd ~/
 
 # Force ctrl+r to work because tmux has suddenly decided to hate me
 bindkey '^R' history-incremental-search-backward
@@ -133,3 +131,18 @@ eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+
+# pyenv thingies 
+export PYENV_ROOT="$HOME/.pyenv"
+[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init - zsh)"
+
+
+# Created by `pipx` on 2025-10-22 00:40:38
+export PATH="$PATH:/home/iris/.local/bin"
+#
+# Pick a random image from the folder
+RANDOM_LOGO=$(ls ~/Pictures/terminal/*.png | shuf -n 1)
+
+# Run fastfetch using that specific image
+fastfetch --logo "$RANDOM_LOGO" --logo-type kitty --logo-width 30 --logo-height 15

@@ -8,23 +8,14 @@ local Plugins = {
         end
     },
     {
-        "williamboman/mason-lspconfig.nvim", 
-        config = function()
-            require("mason-lspconfig").setup()
-            require("lspconfig").pylsp.setup{
-                settings = {
-                    pylsp = {
-                        plugins = {
-                            mypy = {
-                                enabled = true,
-                                live_mode = true,
-                            },
-                        }
-                    }
-                }
-            }
-        end
+        "mason-org/mason-lspconfig.nvim",
+        opts = {
+            ensure_installed = { "lua_ls", "rust_analyzer" },
+        },
+        dependencies = {
+            { "mason-org/mason.nvim", opts = {} },
+            "neovim/nvim-lspconfig",
     },
-    {"neovim/nvim-lspconfig"},
+}
 }
 return Plugins
