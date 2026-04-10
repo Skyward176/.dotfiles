@@ -72,3 +72,13 @@ cmp.setup({
         ["<CR>"] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item.
     })
 })
+-- diag view
+vim.keymap.set('n', 'gl', function()
+  local opts = {
+    focusable = false,
+    pattern = true,
+    title = 'Diagnostic Info ', -- Added an emoji for extra flair
+    border = 'rounded',           -- Rounded corners for a modern look
+  }
+  vim.diagnostic.open_float(nil, opts)
+end, { desc = 'Show diagnostic error float' })

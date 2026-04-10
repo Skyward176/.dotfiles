@@ -35,6 +35,8 @@ local Plugins = {
     -- file broswer in telescope
     {'nvim-telescope/telescope-file-browser.nvim'},
 
+    -- lspconfig
+    {'neovim/nvim-lspconfig'}
 
 }
 
